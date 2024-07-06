@@ -1,0 +1,28 @@
+ #include<LPC214X.h>
+void delay() {
+unsigned int i=0;
+while (i < 200000) {
+i++;
+}
+}
+
+
+int main() {
+//set P0.16 as output for LED
+IODIR0 |= (0x01 <<16);
+
+//Set P0.10 as input for switch
+IODIR1 &= ~(0x01 << 16);
+
+while (1) {
+///check the status of the switch
+if((IO1PIN & (1<<16))==0) {
+//turn on LED
+IOSET0 |= (0x01 <<16);
+} else {
+//turn off LED
+IOCLR0 |= (0x01 <<16);
+}
+delay();
+}
+}
